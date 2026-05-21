@@ -26,20 +26,35 @@ export default function ProductList() {
 
   return (
     <div className="container">
-      <div className="filters-bar">
-        <input type="text" className="form-control" placeholder="Search products..." 
-               onChange={(e) => setSearch(e.target.value)} />
-        <select className="form-control" onChange={(e) => setCategory(e.target.value)}>
-          <option value="">All Categories</option>
-          <option value="Electronics">Electronics</option>
-          <option value="Furniture">Furniture</option>
-          <option value="Appliances">Appliances</option>
-        </select>
-        <select className="form-control" onChange={(e) => setSort(e.target.value)}>
-          <option value="">Sort by Price</option>
-          <option value="low">Low to High</option>
-          <option value="high">High to Low</option>
-        </select>
+      <div className="filters-panel">
+        <div className="input-group">
+          <svg className="input-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+          <input 
+            type="text" 
+            className="form-control" 
+            placeholder="Search for products..." 
+            onChange={(e) => setSearch(e.target.value)} 
+          />
+        </div>
+
+        <div className="select-wrapper">
+          <select className="form-control" onChange={(e) => setCategory(e.target.value)}>
+            <option value="">All Categories</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Furniture">Furniture</option>
+            <option value="Appliances">Appliances</option>
+          </select>
+        </div>
+
+        <div className="select-wrapper">
+          <select className="form-control" onChange={(e) => setSort(e.target.value)}>
+            <option value="">Sort by Price</option>
+            <option value="low">Lowest to Highest</option>
+            <option value="high">Highest to Lowest</option>
+          </select>
+        </div>
       </div>
 
       <div className="product-grid">
@@ -47,7 +62,16 @@ export default function ProductList() {
           <ProductItem key={product.id} product={product} />
         ))}
       </div>
-      {filteredProducts.length === 0 && <p className="text-center mt-2 text-light">No products found.</p>}
+
+      {filteredProducts.length === 0 && (
+        <div className="empty-state">
+          <svg width="48" height="48" fill="none" stroke="currentColor" viewBox="0 0 24 24" margin="auto">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+          </svg>
+          <h3>No products found</h3>
+          <p>Try adjusting your search or filter settings to find what you're looking for.</p>
+        </div>
+      )}
     </div>
   );
 }

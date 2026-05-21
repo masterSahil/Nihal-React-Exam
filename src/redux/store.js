@@ -2,7 +2,12 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { thunk } from 'redux-thunk';
 
 const initProductState = { products: [], loading: false };
-const initAuthState = { isAuthenticated: false, user: null };
+
+const savedUser = localStorage.getItem('stockMasterUser');
+const initAuthState = { 
+  isAuthenticated: !!savedUser,
+  user: savedUser 
+};
 
 const productReducer = (state = initProductState, action) => {
   switch (action.type) {
@@ -15,10 +20,17 @@ const productReducer = (state = initProductState, action) => {
 
 const authReducer = (state = initAuthState, action) => {
   switch (action.type) {
-    case 'LOGIN': return { isAuthenticated: true, user: action.payload };
-    case 'LOGOUT': return { isAuthenticated: false, user: null };
+    case 'LOGIN': 
+      localStorage.setItem('stockMasterUser', action.payload);
+      return { isAuthenticated: true, user: action.payload };
+    case 'LOGOUT': 
+      localStorage.removeItem('stockMasterUser');
+      return { isAuthenticated: false, user: null };
     default: return state;
   }
 };
 
-export const store = createStore(combineReducers({ productData: productReducer, auth: authReducer }), applyMiddleware(thunk));
+export const store = createStore(
+  combineReducers({ productData: productReducer, auth: authReducer }), 
+  applyMiddleware(thunk)
+);
