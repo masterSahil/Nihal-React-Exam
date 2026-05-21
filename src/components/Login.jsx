@@ -19,7 +19,6 @@ export default function Login() {
   return (
     <div className="login-wrapper">
       <div className="card login-card">
-        
         <div className="login-header">
           <div className="login-icon">
             <svg width="32" height="32" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -35,20 +34,14 @@ export default function Login() {
             <svg className="input-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
             </svg>
-            <input 
-              type="text" 
-              className="form-control" 
-              placeholder="Enter your name..." 
-              onChange={(e) => setName(e.target.value)} 
-              required 
-            />
+            <input type="text" required className="form-control" placeholder="Enter your name..." 
+              onChange={(e) => setName(e.target.value)} />
           </div>
           
           <button type="submit" className="btn btn-primary" style={{ width: '100%', padding: '0.875rem', fontSize: '1rem' }}>
             Secure Login
           </button>
         </form>
-        
       </div>
     </div>
   );
